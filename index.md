@@ -1,4 +1,5 @@
-## Welcome to GitHub Pages
+## ECE 532 Final Project
+### Kacie Salmon
 
 You can use the [editor on GitHub](https://github.com/klsalmon/ECE532_FinalProject/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
 
