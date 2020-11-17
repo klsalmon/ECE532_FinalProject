@@ -1,12 +1,6 @@
 ## ECE 532 Final Project
 ### Kacie Salmon
 
-~ $ git add --all
-
-~ $ git commit -m "Initial commit"
-
-~ $ git push -u origin master
-
 You can use the [editor on GitHub](https://github.com/klsalmon/ECE532_FinalProject/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
 
 Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
