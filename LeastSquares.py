@@ -41,7 +41,7 @@ for i in range(10):
         if labels[j] == i:
             z[j,i] = 1
         else:
-            z[j,i] = 0
+            z[j,i] = -1
             
             
 #Step 2: find f_k for each classifier (f_k[:,#] is for that # classifier label)

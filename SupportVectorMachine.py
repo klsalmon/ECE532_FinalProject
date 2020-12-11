@@ -5,6 +5,7 @@ Created on Mon Nov 23 21:47:20 2020
 @author: kacie
 """
 
+import timeit
 import numpy as np
 import pandas as pd
 from sklearn.svm import LinearSVC
@@ -31,13 +32,15 @@ X_test = X_columns_test.to_numpy()
 X_bias = np.hstack((np.ones((60000,1)),X))
 X_test_bias = np.hstack((np.ones((10000,1)),X_test))
 
+start = timeit.default_timer()
+
 #One-v-all USING SUPPORT VECTORS:
 n_eval = np.size(labels_test)
 n_train = np.size(labels)
 
 # Train classifier using linear SVM from SK Learn library
-clf = LinearSVC(random_state=0,C=0.001,tol=1e-4,multi_class='ovr',max_iter=4000)
-clf.fit(X_bias, np.squeeze(labels))
+clf = LinearSVC(random_state=0,C=1,tol=1e-4,multi_class='ovr',max_iter=15000)
+clf.fit(X_test_bias, np.squeeze(labels_test))
 w_opt = clf.coef_.transpose()
 
 y_hat_k=X_test_bias@w_opt #find the Xw for this one-vs-rest classifier
@@ -48,3 +51,7 @@ labels_classified = np.argmax(y_hat_k,axis=1)
 error_vec = [0 if i[0]==i[1] else 1 for i in np.matrix.transpose(np.vstack((labels_classified,labels_test)))]
 error = sum(error_vec)
 print(error)
+
+stop = timeit.default_timer()
+
+print('Time: ', stop - start)  
