@@ -27,7 +27,8 @@ labels_test = labels_column_test.to_numpy()
 X_columns_test = mnist_test_file.drop(['label'], axis=1)
 X_test = X_columns_test.to_numpy()
 
-
+X_bias = np.hstack((np.ones((60000,1)),X))
+X_test_bias = np.hstack((np.ones((10000,1)),X_test))
 #One-v-all. 10 classifiers (0-9), each one has it's own f_k (w) value
 
 #Step 1: construct label vectors z for each classifier (z[:,#] is for that # number classifier label)
@@ -43,14 +44,15 @@ for i in range(10):
 #Step 2: find f_k for each classifier (f_k[:,#] is for that # classifier label)
 ## USING LEAST SQUARES W/ RIDGE REGRESSION:
 
-lam_val=.01
+lam_val=0.1
 
+#X= [X ones(size(X,1),1)]
 # RIDGE REGRESSION:
-U,s,VT=np.linalg.svd(X,full_matrices=False)
+U,s,VT=np.linalg.svd(X_bias,full_matrices=False)
 V=np.matrix.transpose(VT)
 UT=np.matrix.transpose(U)
 
-f_k=np.zeros((784,10))
+f_k=np.zeros((785,10))
 #error=np.zeros((10,1))
 y_hat_k=np.zeros((10000,10))
 d=s/(s**2+lam_val)
@@ -61,7 +63,7 @@ for i in range(10):
     z_use = z[:,[i]]
     f_k_hat=V@D@UT@z_use #find the 'w' term for this one-vs-rest classifier
     f_k[:,[i]]=f_k_hat
-    y_hat_k[:,[i]]=X_test@f_k_hat #find the Xw for this one-vs-rest classifier
+    y_hat_k[:,[i]]=X_test_bias@f_k_hat #find the Xw for this one-vs-rest classifier
 
     
 labels_classified = np.argmax(y_hat_k,axis=1)
