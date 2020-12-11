@@ -6,6 +6,7 @@ Created on Tue Nov 17 12:06:05 2020
 """
 
 import numpy as np
+import timeit
 import pandas as pd
 #from scipy.sparse import csc_matrix
 #from scipy.sparse.linalg import eigs
@@ -30,6 +31,8 @@ X_test = X_columns_test.to_numpy()
 X_bias = np.hstack((np.ones((60000,1)),X))
 X_test_bias = np.hstack((np.ones((10000,1)),X_test))
 #One-v-all. 10 classifiers (0-9), each one has it's own f_k (w) value
+
+start = timeit.default_timer()
 
 #Step 1: construct label vectors z for each classifier (z[:,#] is for that # number classifier label)
 z = np.zeros((len(labels),10))
@@ -73,3 +76,7 @@ labels_classified = np.argmax(y_hat_k,axis=1)
 error_vec = [0 if i[0]==i[1] else 1 for i in np.matrix.transpose(np.vstack((labels_classified,labels_test)))]
 error = sum(error_vec)
 print(error)
+
+stop = timeit.default_timer()
+
+print('Time: ', stop - start)  

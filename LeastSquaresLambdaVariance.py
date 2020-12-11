@@ -7,6 +7,7 @@ Created on Tue Nov 17 12:06:05 2020
 
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 #from scipy.sparse import csc_matrix
 #from scipy.sparse.linalg import eigs
 
@@ -53,6 +54,7 @@ V=np.matrix.transpose(VT)
 UT=np.matrix.transpose(U)
 
 sq_err_r=np.zeros((25,1))
+err_total=np.zeros((25,1))
 
 for j in range(25):
     print(lam_vals[j])
@@ -77,5 +79,32 @@ for j in range(25):
     error_vec = [0 if i[0]==i[1] else 1 for i in np.matrix.transpose(np.vstack((labels_classified,labels_test)))]
     error = sum(error_vec)
     print(error)
+    err_total[j]=error
     
     sq_err_r[j] = np.sum(np.square(labels_classified - labels_test))
+    
+fig = plt.figure()
+ax = fig.add_subplot(111)
+ax.plot(lam_vals,sq_err_r)
+ax.set_xlabel('$\lambda$', fontsize=16)
+ax.set_ylabel('$||Aw*-d||_2^2$', fontsize=16)
+ax.set_title('Least Squares Regression', fontsize=18)
+plt.show()
+
+fig = plt.figure()
+ax = fig.add_subplot(111)
+ax.plot(lam_vals,sq_err_r)
+ax.set_xlabel('$\lambda$', fontsize=16)
+ax.set_ylabel('$||Aw*-d||_2^2$', fontsize=16)
+ax.set_title('Least Squares Regression', fontsize=18)
+plt.xscale("log")
+plt.show()
+
+fig = plt.figure()
+ax = fig.add_subplot(111)
+ax.plot(lam_vals,err_total)
+ax.set_xlabel('$\lambda$', fontsize=16)
+ax.set_ylabel('Misclassifications', fontsize=16)
+ax.set_title('Least Squares Regression', fontsize=18)
+plt.xscale("log")
+plt.show()
