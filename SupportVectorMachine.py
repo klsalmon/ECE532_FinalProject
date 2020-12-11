@@ -28,18 +28,19 @@ labels_test = labels_column_test.to_numpy()
 X_columns_test = mnist_test_file.drop(['label'], axis=1)
 X_test = X_columns_test.to_numpy()
 
+X_bias = np.hstack((np.ones((60000,1)),X))
+X_test_bias = np.hstack((np.ones((10000,1)),X_test))
+
 #One-v-all USING SUPPORT VECTORS:
 n_eval = np.size(labels_test)
-x_eval_1 = X_test
 n_train = np.size(labels)
-x_train_1 = X
 
 # Train classifier using linear SVM from SK Learn library
-clf = LinearSVC(random_state=0, tol=1e-8,multi_class='ovr',max_iter=2000)
-clf.fit(x_train_1, np.squeeze(labels))
+clf = LinearSVC(random_state=0,C=0.001,tol=1e-4,multi_class='ovr',max_iter=4000)
+clf.fit(X_bias, np.squeeze(labels))
 w_opt = clf.coef_.transpose()
 
-y_hat_k=x_eval_1@w_opt #find the Xw for this one-vs-rest classifier
+y_hat_k=X_test_bias@w_opt #find the Xw for this one-vs-rest classifier
 labels_classified = np.argmax(y_hat_k,axis=1)
 #print(labels_classified) #find the y_hat by argmin of all X*f_k, as given by one-vs-rest
 #print(labels_test)

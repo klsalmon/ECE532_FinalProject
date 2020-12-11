@@ -27,6 +27,8 @@ labels_test = labels_column_test.to_numpy()
 X_columns_test = mnist_test_file.drop(['label'], axis=1)
 X_test = X_columns_test.to_numpy()
 
+X_bias = np.hstack((np.ones((60000,1)),X))
+X_test_bias = np.hstack((np.ones((10000,1)),X_test))
 
 #Separating data into 10000 point subsets (7 datasets)
 ## For cross validation

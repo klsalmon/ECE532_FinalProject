@@ -45,7 +45,7 @@ for i in range(10):
 #Step 2: find f_k for each classifier (f_k[:,#] is for that # classifier label)
 ## USING LEAST SQUARES W/ RIDGE REGRESSION:
 
-lam_vals = np.logspace(np.log10(30), np.log10(200), num=25)
+lam_vals = np.logspace(-6, np.log10(5000), num=25)
 
 # RIDGE REGRESSION:
 U,s,VT=np.linalg.svd(X_bias,full_matrices=False)
