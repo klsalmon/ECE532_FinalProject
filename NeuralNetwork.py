@@ -44,7 +44,7 @@ start = timeit.default_timer()
 X_bias = np.hstack((np.ones((60000,1)),X))
 X_test_bias = np.hstack((np.ones((10000,1)),X_test))
 q = np.shape(z)[1] #number of classification problems
-M = 3 #number of hidden nodes
+M = 100 #number of hidden nodes
 p = 784
 n = int(60000) #examples
 
