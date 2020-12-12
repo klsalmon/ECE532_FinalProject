@@ -42,8 +42,9 @@ start = timeit.default_timer()
 #Neural Network:
 ## Train NN
 X_bias = np.hstack((np.ones((60000,1)),X))
+X_test_bias = np.hstack((np.ones((10000,1)),X_test))
 q = np.shape(z)[1] #number of classification problems
-M = 20 #number of hidden nodes
+M = 3 #number of hidden nodes
 p = 784
 n = int(60000) #examples
 
@@ -73,16 +74,16 @@ for epoch in range(L):
     print(epoch)
     
 
-## Final predicted labels (on training data)
-H = logsig(np.hstack((np.ones((n,1)), X_bias@W)))
+## Final predicted labels (on test data)
+H = logsig(np.hstack((np.ones((10000,1)), X_test_bias@W)))
 Yhat = logsig(H@V)
 
 
-yhat=np.zeros((60000))
-for i in range(60000):
+yhat=np.zeros((10000))
+for i in range(10000):
     yhat[i]=np.argmin(Yhat[i,:])
     
-error_vec = [0 if i[0]==i[1] else 1 for i in np.matrix.transpose(np.vstack((np.transpose(yhat),labels)))]
+error_vec = [0 if i[0]==i[1] else 1 for i in np.matrix.transpose(np.vstack((np.transpose(yhat),labels_test)))]
 error = sum(error_vec)
 print(error)
     
