@@ -41,13 +41,13 @@ for i in range(10):
             
 start = timeit.default_timer()
 
-epoch_vals = np.logspace(0, 4, num=20)
+epoch_vals = np.logspace(0, 3, num=15)
 
-sq_err_r=np.zeros((20,1))
-err_total=np.zeros((20,1))
-epoch_used=np.zeros((20,1))
+sq_err_r=np.zeros((15,1))
+err_total=np.zeros((15,1))
+epoch_used=np.zeros((15,1))
 
-for j in range(20):
+for j in range(15):
     epoch_use = int(epoch_vals[j])
     epoch_used[j] = epoch_use
     #Neural Network:
@@ -116,7 +116,7 @@ ax = fig.add_subplot(111)
 ax.plot(epoch_used,sq_err_r)
 ax.set_xlabel('$Epoch$', fontsize=16)
 ax.set_ylabel('$||Aw*-d||_2^2$', fontsize=16)
-ax.set_title('eural Network Epoch', fontsize=18)
+ax.set_title('Neural Network Epoch', fontsize=18)
 plt.xscale("log")
 plt.show()
 
@@ -125,7 +125,7 @@ ax = fig.add_subplot(111)
 ax.plot(epoch_used,err_total)
 ax.set_xlabel('$Epoch$', fontsize=16)
 ax.set_ylabel('Misclassifications', fontsize=16)
-ax.set_title('eural Network Epoch', fontsize=18)
+ax.set_title('Neural Network Epoch', fontsize=18)
 plt.xscale("log")
 plt.show()
 
