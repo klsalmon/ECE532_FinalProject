@@ -9,8 +9,6 @@ import timeit
 import numpy as np
 import pandas as pd
 from sklearn.svm import LinearSVC
-#from scipy.sparse import csc_matrix
-#from scipy.sparse.linalg import eigs
 
 mnist_train_file = pd.read_csv("fashion-mnist_train.csv")
 mnist_test_file = pd.read_csv("fashion-mnist_test.csv")
@@ -39,8 +37,8 @@ n_eval = np.size(labels_test)
 n_train = np.size(labels)
 
 # Train classifier using linear SVM from SK Learn library
-clf = LinearSVC(random_state=0,C=1,tol=1e-4,multi_class='ovr',max_iter=15000)
-clf.fit(X_test_bias, np.squeeze(labels_test))
+clf = LinearSVC(random_state=0,C=.0001,tol=1e-4,multi_class='ovr',max_iter=40000)
+clf.fit(X_bias, np.squeeze(labels))
 w_opt = clf.coef_.transpose()
 
 y_hat_k=X_test_bias@w_opt #find the Xw for this one-vs-rest classifier

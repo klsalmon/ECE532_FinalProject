@@ -8,8 +8,6 @@ Created on Tue Nov 17 12:06:05 2020
 import numpy as np
 import timeit
 import pandas as pd
-#from scipy.sparse import csc_matrix
-#from scipy.sparse.linalg import eigs
 
 mnist_train_file = pd.read_csv("fashion-mnist_train.csv")
 mnist_test_file = pd.read_csv("fashion-mnist_test.csv")
