@@ -18,14 +18,14 @@ labels_column = mnist_train_file.loc[:,'label']
 labels = labels_column.to_numpy()
 
 X_columns = mnist_train_file.drop(['label'], axis=1)
-X = X_columns.to_numpy()
+X = X_columns.to_numpy()/255 #normalize pixels to 0-1
 
 #Put test data into X,y arrays
 labels_column_test = mnist_test_file.loc[:,'label']
 labels_test = labels_column_test.to_numpy()
 
 X_columns_test = mnist_test_file.drop(['label'], axis=1)
-X_test = X_columns_test.to_numpy()
+X_test = X_columns_test.to_numpy()/255 #normalize pixels to 0-1
 
 X_test_bias = np.hstack((np.ones((10000,1)),X_test))
 
@@ -52,7 +52,7 @@ n = int(60000) #examples
 V = np.random.randn(M+1, q); 
 W = np.random.randn(p+1, M);
 
-alpha = 0.1 #step size
+alpha = 0.01 #step size
 L = 100 #number of epochs
 
 def logsig(_x):
